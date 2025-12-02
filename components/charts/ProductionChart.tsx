@@ -45,12 +45,13 @@ export function ProductionTrendChart({ data, height = 300 }: ProductionChartProp
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="date" 
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           angle={-45}
           textAnchor="end"
           height={80}
+          interval="preserveStartEnd"
         />
-        <YAxis tick={{ fontSize: 12 }} />
+        <YAxis tick={{ fontSize: 10 }} />
         <Tooltip 
           formatter={(value: number) => value.toLocaleString()}
           labelStyle={{ color: '#000' }}
@@ -100,12 +101,13 @@ export function ProductionByMachineChart({ data, height = 300 }: ProductionChart
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="machine" 
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           angle={-45}
           textAnchor="end"
           height={80}
+          interval="preserveStartEnd"
         />
-        <YAxis tick={{ fontSize: 12 }} />
+        <YAxis tick={{ fontSize: 10 }} />
         <Tooltip 
           formatter={(value: number) => value.toLocaleString()}
           labelStyle={{ color: '#000' }}
@@ -141,12 +143,13 @@ export function GoodVsRejectedChart({ data, height = 300 }: ProductionChartProps
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="date" 
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           angle={-45}
           textAnchor="end"
           height={80}
+          interval="preserveStartEnd"
         />
-        <YAxis tick={{ fontSize: 12 }} />
+        <YAxis tick={{ fontSize: 10 }} />
         <Tooltip 
           formatter={(value: number) => value.toLocaleString()}
           labelStyle={{ color: '#000' }}

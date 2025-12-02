@@ -89,14 +89,14 @@ export default function TRSPage() {
         lastUpdated={lastUpdated}
       />
       
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">TRS & Time Analysis</h1>
-          <p className="text-gray-600 mt-1">Overall Equipment Effectiveness and machine efficiency metrics</p>
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
+        <div className="mb-4 sm:mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">TRS & Time Analysis</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1">Overall Equipment Effectiveness and machine efficiency metrics</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
           <KPICard
             title="Average TRS"
             value={avgTRS}
@@ -129,7 +129,7 @@ export default function TRSPage() {
         </div>
 
         {/* Time Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
           <KPICard
             title="Total Productive Time"
             value={`${Math.round(totalProductive / 60)} hours`}
@@ -146,7 +146,7 @@ export default function TRSPage() {
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
           <ChartContainer
             title="TRS Trend"
             description="Overall Equipment Effectiveness over time"
@@ -164,7 +164,7 @@ export default function TRSPage() {
           </ChartContainer>
         </div>
 
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6">
           <ChartContainer
             title="Machine Comparison"
             description="TRS performance across all machines"

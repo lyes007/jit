@@ -69,17 +69,17 @@ export default function BalancedPage() {
         lastUpdated={lastUpdated}
       />
       
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="mb-6 flex items-center justify-between">
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
+        <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Balanced Quantities Alert</h1>
-            <p className="text-gray-600 mt-1">Monitor fiscaux ready for assembly</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Balanced Quantities Alert</h1>
+            <p className="text-sm sm:text-base text-gray-600 mt-1">Monitor fiscaux ready for assembly</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
             {readyCount > 0 && (
               <AlertBadge status="ready" count={readyCount} />
             )}
-            <Badge variant="outline" className="text-sm">
+            <Badge variant="outline" className="text-xs sm:text-sm">
               Total Ready: {totalBalanced.toLocaleString()} units
             </Badge>
           </div>
@@ -143,55 +143,59 @@ export default function BalancedPage() {
               </p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Fiscaux Code</TableHead>
-                  <TableHead>Fiscaux Name</TableHead>
-                  <TableHead className="text-right">Balanced Units</TableHead>
-                  <TableHead className="text-right">Required Positions</TableHead>
-                  <TableHead className="text-right">Ready Positions</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Date</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{item.fiscauxCode}</TableCell>
-                    <TableCell>{item.fiscauxName}</TableCell>
-                    <TableCell className="text-right font-semibold">
-                      {item.balancedUnits.toLocaleString()}
-                    </TableCell>
-                    <TableCell className="text-right">{item.requiredPositions}</TableCell>
-                    <TableCell className="text-right">
-                      <span className={item.readyPositions === item.requiredPositions ? 'text-green-600 font-semibold' : 'text-yellow-600'}>
-                        {item.readyPositions} / {item.requiredPositions}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      {item.balancedUnits > 0 ? (
-                        <AlertBadge status="ready" />
-                      ) : item.readyPositions === item.requiredPositions ? (
-                        <AlertBadge status="warning" />
-                      ) : (
-                        <AlertBadge status="pending" />
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {item.date ? format(new Date(item.date), 'MMM dd, yyyy') : '-'}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <div className="inline-block min-w-full align-middle px-4 sm:px-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-xs sm:text-sm">Fiscaux Code</TableHead>
+                      <TableHead className="text-xs sm:text-sm hidden md:table-cell">Fiscaux Name</TableHead>
+                      <TableHead className="text-right text-xs sm:text-sm">Balanced Units</TableHead>
+                      <TableHead className="text-right text-xs sm:text-sm hidden sm:table-cell">Required</TableHead>
+                      <TableHead className="text-right text-xs sm:text-sm hidden sm:table-cell">Ready</TableHead>
+                      <TableHead className="text-xs sm:text-sm">Status</TableHead>
+                      <TableHead className="text-xs sm:text-sm hidden md:table-cell">Date</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="font-medium text-xs sm:text-sm">{item.fiscauxCode}</TableCell>
+                        <TableCell className="text-xs sm:text-sm hidden md:table-cell">{item.fiscauxName}</TableCell>
+                        <TableCell className="text-right font-semibold text-xs sm:text-sm">
+                          {item.balancedUnits.toLocaleString()}
+                        </TableCell>
+                        <TableCell className="text-right text-xs sm:text-sm hidden sm:table-cell">{item.requiredPositions}</TableCell>
+                        <TableCell className="text-right text-xs sm:text-sm hidden sm:table-cell">
+                          <span className={item.readyPositions === item.requiredPositions ? 'text-green-600 font-semibold' : 'text-yellow-600'}>
+                            {item.readyPositions} / {item.requiredPositions}
+                          </span>
+                        </TableCell>
+                        <TableCell className="text-xs sm:text-sm">
+                          {item.balancedUnits > 0 ? (
+                            <AlertBadge status="ready" />
+                          ) : item.readyPositions === item.requiredPositions ? (
+                            <AlertBadge status="warning" />
+                          ) : (
+                            <AlertBadge status="pending" />
+                          )}
+                        </TableCell>
+                        <TableCell className="text-xs sm:text-sm hidden md:table-cell">
+                          {item.date ? format(new Date(item.date), 'MMM dd, yyyy') : '-'}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           )}
         </ChartContainer>
 
         {/* Instructions */}
-        <div className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
-          <h3 className="font-semibold text-blue-900 mb-2">How to Use This Dashboard</h3>
-          <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+        <div className="mt-4 sm:mt-6 rounded-lg border border-blue-200 bg-blue-50 p-3 sm:p-4">
+          <h3 className="font-semibold text-blue-900 mb-2 text-sm sm:text-base">How to Use This Dashboard</h3>
+          <ul className="text-xs sm:text-sm text-blue-800 space-y-1 list-disc list-inside">
             <li>This dashboard alerts the warehouse manager when fiscaux are ready for assembly</li>
             <li>Balanced units = minimum available quantity across all required positions</li>
             <li>When balanced units &gt; 0, the fiscaux can be transferred to assembly</li>

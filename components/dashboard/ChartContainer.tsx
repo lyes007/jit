@@ -23,24 +23,26 @@ export function ChartContainer({
 }: ChartContainerProps) {
   return (
     <Card className={className}>
-      <CardHeader>
-        <div className="flex items-center justify-between">
+      <CardHeader className="p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
           <div>
-            <CardTitle>{title}</CardTitle>
+            <CardTitle className="text-base sm:text-lg">{title}</CardTitle>
             {description && (
-              <CardDescription className="mt-1">{description}</CardDescription>
+              <CardDescription className="mt-1 text-xs sm:text-sm">{description}</CardDescription>
             )}
           </div>
-          {action && <div>{action}</div>}
+          {action && <div className="flex-shrink-0">{action}</div>}
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-3 sm:p-6">
         {loading ? (
           <div className="space-y-2">
-            <Skeleton className="h-[300px] w-full" />
+            <Skeleton className="h-[250px] sm:h-[300px] w-full" />
           </div>
         ) : (
-          children
+          <div className="overflow-x-auto">
+            {children}
+          </div>
         )}
       </CardContent>
     </Card>

@@ -87,101 +87,113 @@ export function Header({
   };
 
   return (
-    <div className="border-b bg-white px-6 py-4">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-1 flex-wrap items-center gap-4">
-          {/* Date Range */}
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-gray-500" />
-            <Label htmlFor="start-date" className="text-sm">From</Label>
-            <Input
-              id="start-date"
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="w-40"
-            />
-            <Label htmlFor="end-date" className="text-sm">To</Label>
-            <Input
-              id="end-date"
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="w-40"
-            />
-          </div>
-
-          {/* Presets */}
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePreset('today')}
-            >
-              Today
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePreset('week')}
-            >
-              Week
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePreset('month')}
-            >
-              Month
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePreset('year')}
-            >
-              Year
-            </Button>
-          </div>
-
-          {/* Machine Filter */}
-          {machines.length > 0 && (
-            <div className="flex items-center gap-2">
-              <Label htmlFor="machine" className="text-sm">Machine</Label>
-              <Select value={selectedMachine} onValueChange={setSelectedMachine}>
-                <SelectTrigger id="machine" className="w-48">
-                  <SelectValue placeholder="All Machines" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Machines</SelectItem>
-                  {machines.map((machine) => (
-                    <SelectItem key={machine.machine_key} value={machine.machine_key.toString()}>
-                      {machine.machine_name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+    <div className="border-b bg-white px-3 py-3 sm:px-6 sm:py-4">
+      <div className="flex flex-col gap-3 sm:gap-4">
+        {/* Top row: Date range and presets */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+            {/* Date Range */}
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-2">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                <Label htmlFor="start-date" className="text-xs sm:text-sm whitespace-nowrap">From</Label>
+                <Input
+                  id="start-date"
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="w-full sm:w-36 text-sm"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="end-date" className="text-xs sm:text-sm whitespace-nowrap">To</Label>
+                <Input
+                  id="end-date"
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className="w-full sm:w-36 text-sm"
+                />
+              </div>
             </div>
-          )}
+
+            {/* Presets */}
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handlePreset('today')}
+                className="text-xs sm:text-sm"
+              >
+                Today
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handlePreset('week')}
+                className="text-xs sm:text-sm"
+              >
+                Week
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handlePreset('month')}
+                className="text-xs sm:text-sm"
+              >
+                Month
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handlePreset('year')}
+                className="text-xs sm:text-sm"
+              >
+                Year
+              </Button>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center justify-between sm:justify-end gap-2">
+            {isMounted && lastUpdated && (
+              <span className="text-xs text-gray-500 hidden sm:inline" suppressHydrationWarning>
+                Updated: {lastUpdated.toLocaleTimeString()}
+              </span>
+            )}
+            {onRefresh && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onRefresh}
+                className="w-full sm:w-auto"
+              >
+                <RefreshCw className="mr-2 h-4 w-4" />
+                <span className="hidden sm:inline">Refresh</span>
+              </Button>
+            )}
+          </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center gap-3">
-          {isMounted && lastUpdated && (
-            <span className="text-xs text-gray-500" suppressHydrationWarning>
-              Updated: {lastUpdated.toLocaleTimeString()}
-            </span>
-          )}
-          {onRefresh && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onRefresh}
-            >
-              <RefreshCw className="mr-2 h-4 w-4" />
-              Refresh
-            </Button>
-          )}
-        </div>
+        {/* Machine Filter - Full width on mobile */}
+        {machines.length > 0 && (
+          <div className="flex items-center gap-2">
+            <Label htmlFor="machine" className="text-xs sm:text-sm whitespace-nowrap">Machine</Label>
+            <Select value={selectedMachine} onValueChange={setSelectedMachine}>
+              <SelectTrigger id="machine" className="w-full sm:w-48 text-sm">
+                <SelectValue placeholder="All Machines" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Machines</SelectItem>
+                {machines.map((machine) => (
+                  <SelectItem key={machine.machine_key} value={machine.machine_key.toString()}>
+                    {machine.machine_name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
     </div>
   );

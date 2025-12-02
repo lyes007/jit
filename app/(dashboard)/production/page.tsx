@@ -107,14 +107,14 @@ export default function ProductionPage() {
         lastUpdated={lastUpdated}
       />
       
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Production & Consumption</h1>
-          <p className="text-gray-600 mt-1">Monitor production quantities and material consumption</p>
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
+        <div className="mb-4 sm:mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Production & Consumption</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1">Monitor production quantities and material consumption</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
           <KPICard
             title="Total Good Pieces"
             value={kpis?.totalGood || 0}
@@ -144,7 +144,7 @@ export default function ProductionPage() {
         </div>
 
         {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
           <ChartContainer
             title="Production Trend"
             description="Good vs rejected pieces over time"
@@ -162,7 +162,7 @@ export default function ProductionPage() {
           </ChartContainer>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 mb-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-4 sm:mb-6">
           <ChartContainer
             title="Good vs Rejected Pieces"
             description="Stacked view of production quality"
@@ -178,50 +178,54 @@ export default function ProductionPage() {
           description="Articles with highest production quantities"
           loading={loading}
         >
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Article Code</TableHead>
-                <TableHead className="text-right">Good Pieces</TableHead>
-                <TableHead className="text-right">Rejected Pieces</TableHead>
-                <TableHead className="text-right">Total</TableHead>
-                <TableHead className="text-right">Rejection Rate</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {topArticles.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center text-gray-500">
-                    No data available
-                  </TableCell>
-                </TableRow>
-              ) : (
-                topArticles.map((item, index) => {
-                  const total = item.goodPieces + item.rejectedPieces;
-                  const rate = total > 0 ? (item.rejectedPieces / total) : 0;
-                  return (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{item.article}</TableCell>
-                      <TableCell className="text-right">
-                        {item.goodPieces.toLocaleString()}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {item.rejectedPieces.toLocaleString()}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {total.toLocaleString()}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className={rate > 0.1 ? 'text-red-600 font-semibold' : 'text-gray-600'}>
-                          {(rate * 100).toFixed(1)}%
-                        </span>
+          <div className="overflow-x-auto -mx-4 sm:mx-0">
+            <div className="inline-block min-w-full align-middle px-4 sm:px-0">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="text-xs sm:text-sm">Article Code</TableHead>
+                    <TableHead className="text-right text-xs sm:text-sm">Good Pieces</TableHead>
+                    <TableHead className="text-right text-xs sm:text-sm hidden sm:table-cell">Rejected Pieces</TableHead>
+                    <TableHead className="text-right text-xs sm:text-sm">Total</TableHead>
+                    <TableHead className="text-right text-xs sm:text-sm">Rejection Rate</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {topArticles.length === 0 ? (
+                    <TableRow>
+                      <TableCell colSpan={5} className="text-center text-gray-500 text-sm">
+                        No data available
                       </TableCell>
                     </TableRow>
-                  );
-                })
-              )}
-            </TableBody>
-          </Table>
+                  ) : (
+                    topArticles.map((item, index) => {
+                      const total = item.goodPieces + item.rejectedPieces;
+                      const rate = total > 0 ? (item.rejectedPieces / total) : 0;
+                      return (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium text-xs sm:text-sm">{item.article}</TableCell>
+                          <TableCell className="text-right text-xs sm:text-sm">
+                            {item.goodPieces.toLocaleString()}
+                          </TableCell>
+                          <TableCell className="text-right text-xs sm:text-sm hidden sm:table-cell">
+                            {item.rejectedPieces.toLocaleString()}
+                          </TableCell>
+                          <TableCell className="text-right text-xs sm:text-sm">
+                            {total.toLocaleString()}
+                          </TableCell>
+                          <TableCell className="text-right text-xs sm:text-sm">
+                            <span className={rate > 0.1 ? 'text-red-600 font-semibold' : 'text-gray-600'}>
+                              {(rate * 100).toFixed(1)}%
+                            </span>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
         </ChartContainer>
       </div>
     </div>

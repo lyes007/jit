@@ -20,8 +20,19 @@ const navigation = [
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  onClose?: () => void;
+}
+
+export function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
+
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when link is clicked
+    if (onClose && window.innerWidth < 1024) {
+      onClose();
+    }
+  };
 
   return (
     <div className="flex h-full w-64 flex-col border-r bg-white">
@@ -29,7 +40,7 @@ export function Sidebar() {
         <LayoutDashboard className="h-6 w-6 text-blue-600" />
         <span className="ml-2 text-lg font-semibold">JIT Dashboard</span>
       </div>
-      <nav className="flex-1 space-y-1 px-3 py-4">
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
         {navigation.map((item) => {
           const isActive = pathname === item.href || 
             (item.href !== '/' && pathname?.startsWith(item.href));
@@ -37,6 +48,7 @@ export function Sidebar() {
             <Link
               key={item.name}
               href={item.href}
+              onClick={handleLinkClick}
               className={cn(
                 'flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 isActive
@@ -45,10 +57,10 @@ export function Sidebar() {
               )}
             >
               <item.icon className={cn(
-                'mr-3 h-5 w-5',
+                'mr-3 h-5 w-5 flex-shrink-0',
                 isActive ? 'text-blue-600' : 'text-gray-400'
               )} />
-              {item.name}
+              <span className="truncate">{item.name}</span>
             </Link>
           );
         })}

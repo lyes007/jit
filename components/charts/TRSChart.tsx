@@ -47,14 +47,15 @@ export function TRSTrendChart({ data, height = 300 }: TRSChartProps) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="date" 
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           angle={-45}
           textAnchor="end"
           height={80}
+          interval="preserveStartEnd"
         />
         <YAxis 
           domain={[0, 1]}
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           tickFormatter={(value) => `${(value * 100).toFixed(0)}%`}
         />
         <Tooltip 
@@ -100,14 +101,15 @@ export function TRSComponentsChart({ data, height = 300 }: TRSChartProps) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="machine" 
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           angle={-45}
           textAnchor="end"
           height={80}
+          interval="preserveStartEnd"
         />
         <YAxis 
           domain={[0, 1]}
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           tickFormatter={(value) => `${(value * 100).toFixed(0)}%`}
         />
         <Tooltip 
@@ -153,14 +155,15 @@ export function MachineComparisonChart({ data, height = 300 }: TRSChartProps) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="machine" 
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           angle={-45}
           textAnchor="end"
           height={80}
+          interval="preserveStartEnd"
         />
         <YAxis 
           domain={[0, 1]}
-          tick={{ fontSize: 12 }}
+          tick={{ fontSize: 10 }}
           tickFormatter={(value) => `${(value * 100).toFixed(0)}%`}
         />
         <Tooltip 

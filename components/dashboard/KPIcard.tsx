@@ -67,8 +67,8 @@ export function KPICard({
         </CardTitle>
         {icon && <div className="text-gray-400">{icon}</div>}
       </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{formatValue(value)}</div>
+      <CardContent className="p-4 sm:p-6">
+        <div className="text-xl sm:text-2xl font-bold">{formatValue(value)}</div>
         {description && (
           <p className="text-xs text-gray-500 mt-1">{description}</p>
         )}

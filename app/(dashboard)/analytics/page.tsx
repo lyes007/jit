@@ -86,14 +86,14 @@ export default function AnalyticsPage() {
         lastUpdated={lastUpdated}
       />
       
-      <div className="flex-1 overflow-y-auto p-6">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Additional Analytics</h1>
-          <p className="text-gray-600 mt-1">Production efficiency, quality analysis, and performance metrics</p>
+      <div className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6">
+        <div className="mb-4 sm:mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Additional Analytics</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1">Production efficiency, quality analysis, and performance metrics</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
           <KPICard
             title="Production Efficiency"
             value={data?.productionEfficiency || 0}
@@ -124,7 +124,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Charts Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
           {/* Top Producing Articles */}
           <ChartContainer
             title="Top Producing Articles"
@@ -137,12 +137,13 @@ export default function AnalyticsPage() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="articleCode" 
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 10 }}
                     angle={-45}
                     textAnchor="end"
                     height={80}
+                    interval="preserveStartEnd"
                   />
-                  <YAxis tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 10 }} />
                   <Tooltip 
                     formatter={(value: number) => value.toLocaleString()}
                     labelStyle={{ color: '#000' }}
@@ -167,12 +168,13 @@ export default function AnalyticsPage() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="operatorName" 
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 10 }}
                     angle={-45}
                     textAnchor="end"
                     height={80}
+                    interval="preserveStartEnd"
                   />
-                  <YAxis tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 10 }} />
                   <Tooltip 
                     formatter={(value: number) => value.toLocaleString()}
                     labelStyle={{ color: '#000' }}
@@ -187,7 +189,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Machine Utilization */}
-        <div className="grid grid-cols-1 gap-6 mb-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-4 sm:mb-6">
           <ChartContainer
             title="Machine Utilization"
             description="TRS utilization rates by machine"
@@ -199,14 +201,15 @@ export default function AnalyticsPage() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="machineName" 
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 10 }}
                     angle={-45}
                     textAnchor="end"
                     height={80}
+                    interval="preserveStartEnd"
                   />
                   <YAxis 
                     domain={[0, 1]}
-                    tick={{ fontSize: 12 }}
+                    tick={{ fontSize: 10 }}
                     tickFormatter={(value) => `${(value * 100).toFixed(0)}%`}
                   />
                   <Tooltip 
@@ -230,39 +233,43 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Tables */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Top Articles Table */}
           <ChartContainer
             title="Top 10 Producing Articles"
             description="Articles with highest good pieces production"
             loading={loading}
           >
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Article Code</TableHead>
-                  <TableHead className="text-right">Total Good Pieces</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data?.topProducingArticles && data.topProducingArticles.length > 0 ? (
-                  data.topProducingArticles.slice(0, 10).map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{item.articleCode}</TableCell>
-                      <TableCell className="text-right">
-                        {item.totalGood.toLocaleString()}
-                      </TableCell>
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <div className="inline-block min-w-full align-middle px-4 sm:px-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-xs sm:text-sm">Article Code</TableHead>
+                      <TableHead className="text-right text-xs sm:text-sm">Total Good Pieces</TableHead>
                     </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={2} className="text-center text-gray-500">
-                      No data available
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {data?.topProducingArticles && data.topProducingArticles.length > 0 ? (
+                      data.topProducingArticles.slice(0, 10).map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium text-xs sm:text-sm">{item.articleCode}</TableCell>
+                          <TableCell className="text-right text-xs sm:text-sm">
+                            {item.totalGood.toLocaleString()}
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={2} className="text-center text-gray-500 text-sm">
+                          No data available
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           </ChartContainer>
 
           {/* Operator Performance Table */}
@@ -271,38 +278,42 @@ export default function AnalyticsPage() {
             description="Production and quality metrics by operator"
             loading={loading}
           >
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Operator</TableHead>
-                  <TableHead className="text-right">Total Production</TableHead>
-                  <TableHead className="text-right">Avg Quality</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data?.operatorPerformance && data.operatorPerformance.length > 0 ? (
-                  data.operatorPerformance.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{item.operatorName}</TableCell>
-                      <TableCell className="text-right">
-                        {item.totalProduction.toLocaleString()}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <span className={item.averageQuality >= 0.95 ? 'text-green-600 font-semibold' : 'text-gray-600'}>
-                          {(item.averageQuality * 100).toFixed(1)}%
-                        </span>
-                      </TableCell>
+            <div className="overflow-x-auto -mx-4 sm:mx-0">
+              <div className="inline-block min-w-full align-middle px-4 sm:px-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-xs sm:text-sm">Operator</TableHead>
+                      <TableHead className="text-right text-xs sm:text-sm">Total Production</TableHead>
+                      <TableHead className="text-right text-xs sm:text-sm">Avg Quality</TableHead>
                     </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell colSpan={3} className="text-center text-gray-500">
-                      No data available
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {data?.operatorPerformance && data.operatorPerformance.length > 0 ? (
+                      data.operatorPerformance.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell className="font-medium text-xs sm:text-sm">{item.operatorName}</TableCell>
+                          <TableCell className="text-right text-xs sm:text-sm">
+                            {item.totalProduction.toLocaleString()}
+                          </TableCell>
+                          <TableCell className="text-right text-xs sm:text-sm">
+                            <span className={item.averageQuality >= 0.95 ? 'text-green-600 font-semibold' : 'text-gray-600'}>
+                              {(item.averageQuality * 100).toFixed(1)}%
+                            </span>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={3} className="text-center text-gray-500 text-sm">
+                          No data available
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           </ChartContainer>
         </div>
       </div>
