@@ -32,6 +32,7 @@ export interface BalancedQuantity {
   readyPositions: number;
   limitingPosition?: string;
   positions: PositionAvailability[];
+  date?: string;
 }
 
 export interface PositionAvailability {
